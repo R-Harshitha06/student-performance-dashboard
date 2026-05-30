@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+
+models/
+*.pkl
+
+.vscode/
+
+venv/
+.env
