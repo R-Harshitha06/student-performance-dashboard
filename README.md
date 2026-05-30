@@ -1,3 +1,8 @@
+<img width="1857" height="1048" alt="Screenshot 2026-05-30 224204" src="https://github.com/user-attachments/assets/8d983cec-af7f-4b90-87a5-3ed0b8efbf79" />
+<img width="1843" height="1039" alt="Screenshot 2026-05-30 224229" src="https://github.com/user-attachments/assets/9963fb5b-3461-4e1a-b096-7d3770d763fd" />
+<img width="1868" height="930" alt="Screenshot 2026-05-30 224250" src="https://github.com/user-attachments/assets/c3388bbf-a9d6-4b2b-9ead-cd43a9047da0" />
+<img width="1820" height="1043" alt="Screenshot 2026-05-30 224302" src="https://github.com/user-attachments/assets/99733142-dbf7-44ec-a814-6c5d9765c7c7" />
+<img width="1773" height="1025" alt="Screenshot 2026-05-30 224330" src="https://github.com/user-attachments/assets/5952a00b-e1b8-46b0-838b-0edced1a1baf" />
 # 🎓 Student Performance Prediction Dashboard
 
 A Machine Learning-powered dashboard built with **Python**, **Scikit-Learn**, and **Streamlit** to predict student exam performance based on academic, behavioral, and environmental factors.
