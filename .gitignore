@@ -1,10 +1,29 @@
+# Large model files
+models/random_forest.pkl
+models/scaler.pkl
+
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
 
-models/
-*.pkl
-
+# VS Code
 .vscode/
 
-venv/
+# Typo file
+requirments.txt
+
+# Environment
 .env
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data files (optional - remove if you want to push data)
+# data/*.csv
