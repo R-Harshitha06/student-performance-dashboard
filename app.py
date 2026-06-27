@@ -1,7 +1,9 @@
-import streamlit as st
+ import streamlit as st
 import pandas as pd
 import joblib
 import plotly.express as px
+import os
+from pathlib import Path
 
 st.set_page_config(
     page_title="Student Performance Dashboard",
@@ -9,8 +11,13 @@ st.set_page_config(
     layout="wide"
 )
 
-model = joblib.load("models/random_forest.pkl")
-scaler = joblib.load("models/scaler.pkl")
+# ✅ Add error handling for missing files
+try:
+    model = joblib.load("models/random_forest.pkl")
+    scaler = joblib.load("models/scaler.pkl")
+except FileNotFoundError:
+    st.error("❌ Model files not found! Please run `python train_model.py` first.")
+    st.stop()
 
 st.title("🎓 Student Performance Prediction Dashboard")
 
@@ -91,6 +98,7 @@ with tab1:
 
     if st.button("Predict Exam Score"):
 
+        # ✅ Consistent mapping with train_model.py
         mapping = {
             "Low": 1,
             "Medium": 2,
@@ -99,6 +107,7 @@ with tab1:
             "No": 0
         }
 
+        # ✅ Create input data with correct column order matching training
         input_data = pd.DataFrame([[
             study_hours,
             attendance,
@@ -124,24 +133,45 @@ with tab1:
             "Tutoring_Sessions"
         ])
 
+        # ✅ Ensure data types match training data
+        input_data = input_data.astype('float64')
+        
+        # ✅ Scale input before prediction
         scaled = scaler.transform(input_data)
 
-        prediction = model.predict(scaled)[0]
-
-        st.success(
-            f"Predicted Exam Score: {prediction:.2f}"
-        )
+        # ✅ Add error handling for prediction
+        try:
+            prediction = model.predict(scaled)[0]
+            
+            # ✅ Add confidence context
+            if prediction < 50:
+                color = "🔴"
+                context = "Below Average"
+            elif prediction < 75:
+                color = "🟡"
+                context = "Good"
+            else:
+                color = "🟢"
+                context = "Excellent"
+            
+            st.success(
+                f"{color} Predicted Exam Score: **{prediction:.2f}/100** ({context})"
+            )
+        except Exception as e:
+            st.error(f"❌ Prediction failed: {str(e)}")
 
 with tab2:
 
     st.header("Dataset Analytics")
 
-    df = pd.read_csv(
-    "data/StudentPerformanceFactors.csv"
-    )
-
+    # ✅ Add error handling for data loading
+    try:
+        df = pd.read_csv("data/StudentPerformanceFactors.csv")
+    except FileNotFoundError:
+        st.error("❌ Dataset not found at `data/StudentPerformanceFactors.csv`")
+        st.stop()
+    
     st.subheader("Dataset Preview")
-
     st.dataframe(df.head())
 
     st.subheader("Exam Score Distribution")
@@ -150,7 +180,8 @@ with tab2:
         df,
         x="Exam_Score",
         nbins=20,
-        title="Exam Score Distribution"
+        title="Exam Score Distribution",
+        labels={"Exam_Score": "Exam Score", "count": "Frequency"}
     )
 
     st.plotly_chart(
@@ -164,7 +195,9 @@ with tab2:
         df,
         x="Attendance",
         y="Exam_Score",
-        color="Motivation_Level"
+        color="Motivation_Level",
+        title="Attendance vs Exam Score by Motivation Level",
+        labels={"Attendance": "Attendance %", "Exam_Score": "Exam Score"}
     )
 
     st.plotly_chart(
@@ -183,7 +216,9 @@ with tab2:
     fig3 = px.imshow(
         corr,
         text_auto=True,
-        color_continuous_scale="RdBu_r"
+        color_continuous_scale="RdBu_r",
+        title="Feature Correlation Heatmap",
+        labels=dict(color="Correlation")
     )
 
     st.plotly_chart(
