@@ -118,14 +118,12 @@ student-performance-dashboard/
 │   ├── random_forest.pkl       ← trained model (gitignored)
 │   └── scaler.pkl              ← preprocessor (gitignored)
 │
-├── src/
-│   ├── preprocess.py           ← data preprocessing
-│   ├── train_model.py          ← model training script
-│   └── predict.py              ← prediction helper
-│
 ├── app.py                      ← main Streamlit dashboard
+├── train_model.py              ← model training script
 ├── requirements.txt            ← dependencies
-└── README.md
+├── runtime.txt                 ← Python version
+├── .gitignore                  ← git ignore rules
+└── README.md                   ← documentation
 ```
 
 ---
@@ -145,7 +143,7 @@ pip install -r requirements.txt
 
 ### 3. Train the Model
 ```bash
-python src/train_model.py
+python train_model.py
 ```
 This generates:
 ```
