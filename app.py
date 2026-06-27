@@ -1,9 +1,7 @@
- import streamlit as st
+import streamlit as st
 import pandas as pd
 import joblib
 import plotly.express as px
-import os
-from pathlib import Path
 
 st.set_page_config(
     page_title="Student Performance Dashboard",
