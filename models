@@ -1,2 +1,2 @@
-models/random_forest.pkl
-models/scaler.pkl
+random_forest.pkl
+scaler.pkl
